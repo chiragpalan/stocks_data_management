@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install sqlite3 pandas
+          pip install pandas
 
       # Update README with last 5 rows from each table in the database
       - name: Update README with last 5 rows
