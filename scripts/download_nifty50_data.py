@@ -18,8 +18,8 @@ def download_nifty50_data():
         data = yf.download(ticker, 
                            interval="5m", 
                         #    period="1d", 
-                        start= "2024-12-31",
-                        end = "2025-01-01",
+                        start= "2025-01-01",
+                        end = "2025-01-02",
                            progress=False)
         
         data.rename(columns={"Adj Close":"Adj_Close"}, inplace=True)
