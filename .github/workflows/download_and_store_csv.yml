@@ -23,23 +23,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install yfinance==0.2.30
+          pip install pandas sqlite3  # Install pandas and sqlite3
 
       # Step 2: Download Nifty50 data and save CSV files
       - name: Download Nifty50 Data
         run: |
           python3 scripts/download_nifty50_data.py  # Path to your download_nifty50_data.py script
 
-      # Step 3: Commit and push the downloaded CSV files to GitHub
-      - name: Commit and push CSV files
+      # Step 3: Store data from CSV files to SQLite database
+      - name: Store CSV data to SQLite DB
+        run: |
+          python3 scripts/store_csv_to_db.py  # Path to your store_csv_to_db.py script
+
+      # Step 4: Commit and push the updated database and CSV files
+      - name: Commit and push updated files
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           
-          # Stage CSV files for commit
-          git add temp_csv/*.csv
+          # Stage the database and CSV files for commit
+          git add temp_csv/*.csv nifty50_data_v1.db
 
-          # Commit the CSV files
-          git commit -m "Download Nifty50 data and save CSV files"
+          # Commit the changes
+          git commit -m "Download Nifty50 data, store to DB, and update CSVs"
 
           # Push the changes back to the repository
           git push origin main  # Or the branch you want to push to
