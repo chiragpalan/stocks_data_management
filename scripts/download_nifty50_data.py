@@ -17,9 +17,9 @@ def download_nifty50_data():
         # Download the data for the past day with a 5-minute interval
         data = yf.download(ticker, 
                            interval="5m", 
-                        #    period="1d", 
-                        start= "2025-01-02",
-                        end = "2025-01-03",
+                        period="1d", 
+                        #start= "2025-01-02",
+                        #end = "2025-01-03",
                            progress=False)
         
         data.rename(columns={"Adj Close":"Adj_Close"}, inplace=True)
