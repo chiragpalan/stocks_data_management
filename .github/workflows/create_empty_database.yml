@@ -11,7 +11,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 1: Create an empty database manually (run this on manual trigger)
+      # Step 1: Create an empty database manually
       - name: Create empty database (if not exists)
         run: |
           python3 scripts/create_empty_database.py  # Path to your create_empty_database.py script
+
+      # Step 2: Commit the newly created database to the repository
+      - name: Commit and push the new database
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          
+          # Add the database file to Git
+          git add nifty50_data_v1.db
+
+          # Commit the changes
+          git commit -m "Create empty database"
+
+          # Push the changes to the repository
+          git push origin main  # Or the branch you want to push to
