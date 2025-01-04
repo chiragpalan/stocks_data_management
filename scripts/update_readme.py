@@ -1,5 +1,6 @@
 import sqlite3
 import pandas as pd
+from tabulate import tabulate  # Import tabulate for markdown conversion
 
 # Path to the SQLite database
 DB_PATH = 'nifty50_data_v1.db'
@@ -21,7 +22,19 @@ def get_last_5_rows_from_tables():
     # Fetch last 5 rows from each table
     for table in tables:
         table_name = table[0]
-        cursor.execute(f"SELECT * FROM {table_name} ORDER BY Id DESC LIMIT 5;")
+        
+        # Get the columns of the table to handle dynamic column names
+        cursor.execute(f"PRAGMA table_info({table_name});")
+        columns = cursor.fetchall()
+        column_names = [column[1] for column in columns]
+
+        # If the table has a 'Datetime' column, we can use it as a default ordering
+        if 'Datetime' in column_names:
+            cursor.execute(f"SELECT * FROM {table_name} ORDER BY Datetime DESC LIMIT 5;")
+        else:
+            # If there is no 'Datetime', fall back to the first column (could be 'Id' or any primary key)
+            cursor.execute(f"SELECT * FROM {table_name} LIMIT 5;")
+        
         rows = cursor.fetchall()
 
         # Store data in dictionary with table name as key
@@ -43,7 +56,7 @@ def update_readme():
     for table_name, rows in data.items():
         tables_content += f"### Last 5 rows from table `{table_name}`\n\n"
         df = pd.DataFrame(rows)
-        tables_content += df.to_markdown(index=False) + "\n\n"
+        tables_content += tabulate(df, headers='keys', tablefmt='github', showindex=False) + "\n\n"
 
     # Add the table content to the README
     new_readme_content = readme_content + "\n\n" + tables_content
