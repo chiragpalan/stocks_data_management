@@ -1,0 +1,25 @@
+name: Download CSV Files and Store in Database
+
+on:
+  schedule:
+    # Schedule to run every 15 minutes from Monday to Friday, 9:15 AM to 3:30 PM IST
+    - cron: "15,30,45,00 3-9 * * 1-5"   # Adjust for UTC time (3:15 AM to 9:30 AM UTC)
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  download_and_store:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Download Nifty50 CSV files from Yahoo Finance
+      - name: Download Nifty50 Data (CSV)
+        run: |
+          python3 scripts/download_nifty50_data.py  # Path to your download_nifty50_data.py script
+
+      # Step 3: Append the downloaded data to the SQLite database
+      - name: Store CSV Data in SQLite Database
+        run: |
+          python3 scripts/store_csv_to_db.py  # Path to your store_csv_to_db.py script
