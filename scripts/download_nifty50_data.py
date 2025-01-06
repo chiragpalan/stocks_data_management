@@ -32,7 +32,7 @@ def download_nifty50_data():
         file_path = os.path.join(CSV_DIR, file_name)
         
         # Save the data to a CSV file
-        data.to_csv(file_path)
+        data.tail(3).to_csv(file_path)
         print(f"Data for {ticker} saved to {file_path}.")
 
 if __name__ == "__main__":
