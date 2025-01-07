@@ -41,15 +41,11 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           
-          # Pull the latest changes from the remote repository
-          git fetch origin
-          git pull origin main --rebase  # Ensures your local branch is up-to-date
-          
           # Stage the database and CSV files for commit
           git add temp_csv/*.csv nifty50_data_v1.db
 
           # Commit the changes
-          git commit -m "Download Nifty50 data, store to DB, and update CSVs" || echo "No changes to commit"
-          
+          git commit -m "Download Nifty50 data, store to DB, and update CSVs"
+
           # Push the changes back to the repository
           git push origin main  # Or the branch you want to push to
