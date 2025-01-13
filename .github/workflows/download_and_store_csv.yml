@@ -2,7 +2,7 @@ name: Download and Store Nifty50 Data
 
 on:
   schedule:
-    - cron: '45-59/15,0-30/15 3-9 * * 1-5'   # Runs every 15 minutes from Monday to Friday (9:15 AM to 3:30 PM IST)
+    - cron: '"*/3 3-9 * * 1-5"'   # Runs every 3 minutes from Monday to Friday (9:15 AM to 3:30 PM IST)
   workflow_dispatch:   # Manual trigger (optional)
 
 jobs:
