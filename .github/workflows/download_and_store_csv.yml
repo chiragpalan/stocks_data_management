@@ -2,8 +2,6 @@ name: Download and Store Nifty50 Data
 
 on:
   schedule:
-    on:
-  schedule:
     - cron: "16-59/5 3 * * 1-5" # 9:16 AM to 9:59 AM IST
     - cron: "0-59/5 4-8 * * 1-5" # 10:00 AM to 2:59 PM IST
     - cron: "0-2/5 9 * * 1-5" # 3:00 PM to 3:32 PM IST
