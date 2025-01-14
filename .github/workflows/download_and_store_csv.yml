@@ -2,9 +2,12 @@ name: Download and Store Nifty50 Data
 
 on:
   schedule:
-    - cron: "16-59/5 3 * * 1-5" # 9:16 AM to 9:59 AM IST
-    - cron: "0-59/5 4-8 * * 1-5" # 10:00 AM to 2:59 PM IST
-    - cron: "0-2/5 9 * * 1-5" # 3:00 PM to 3:32 PM IST
+    # 9:17 AM to 9:59 AM IST (3:46 AM to 3:59 AM UTC)
+    - cron: "47-59/5 3 * * 1-5"
+    # 10:00 AM to 2:59 PM IST (4:00 AM to 8:59 AM UTC)
+    - cron: "0-59/5 4-8 * * 1-5"
+    # 3:00 PM to 3:32 PM IST (9:00 AM to 10:31 AM UTC)
+    - cron: "0-32/5 9-10 * * 1-5"
   workflow_dispatch:   # Manual trigger (optional)
 
 jobs:
